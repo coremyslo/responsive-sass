@@ -1,6 +1,7 @@
 {
     "name": "responsive-sass",
-    "version": "0.0.1",
+    "version": "0.0.2",
+    "main": "index.scss",
     "description": "Responsive sass mixins",
     "repository": {
         "type": "git",
