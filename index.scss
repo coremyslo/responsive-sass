@@ -1,4 +1,4 @@
-@mixin responsive ($rules: "all", $breakpoints, $values...) {
+@mixin responsive ($rules, $breakpoints, $values...) {
     $breakpointsLen: length($breakpoints);
     $valuesLen: length($values);
 
