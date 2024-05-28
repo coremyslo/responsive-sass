@@ -1,0 +1,21 @@
+{
+    "name": "responsive-sass",
+    "version": "0.0.1",
+    "description": "Responsive sass mixins",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/coremyslo/responsive-sass"
+    },
+    "license": "MIT",
+    "keywords": [
+        "sass",
+        "responsive",
+        "breakpoints",
+        "mixins",
+        "css",
+        "scss",
+        "media queries",
+        "front-end",
+        "web development"
+    ]
+}

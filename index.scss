@@ -1,0 +1,72 @@
+@mixin responsive ($rules: "all", $breakpoints, $values...) {
+    $breakpointsLen: length($breakpoints);
+    $valuesLen: length($values);
+
+    @if ($breakpointsLen + 1) != $valuesLen {
+        @warn "media (#{$values}) expects #{$breakpointsLen} arguments, #{$valuesLen} provided";
+    } @else {
+        $errorWrongQuery: false;
+        $condition: "";
+        $startIndex: -1;
+        $lastIndex: -1;
+        @for $i from 1 to length($values)+1 {
+            $query: nth($values, $i);
+            @if $query == 1 {
+                @if $startIndex == -1 {
+                    $startIndex: $i;
+                }
+                @if $i == $valuesLen {
+                    @if $startIndex != 1 {
+                        $media: "#{$rules} and (min-width: #{nth($breakpoints, $startIndex - 1)})";
+                        @if $condition == "" {
+                            $condition: $media;
+                        } @else {
+                            $condition: $condition + ", #{$media}";
+                        }
+                    } @else {
+                        @if $condition == "" {
+                            $condition: "∞";
+                        }
+                    }
+                } @else {
+                    $lastIndex: $i;
+                }
+            } @else {
+                @if $query == 0 {
+                    @if $startIndex == 1 {
+                        @if $condition == "" {
+                            $condition: "#{$rules} and (max-width: #{nth($breakpoints, $lastIndex)})";
+                        }
+                    } @else {
+                        @if $startIndex > 1 {
+                            $media: "#{$rules} and (min-width: #{nth($breakpoints, $startIndex - 1)}) and (max-width: #{nth($breakpoints, $lastIndex)})";
+                            @if $condition == "" {
+                                $condition: $media;
+                            } @else {
+                                $condition: "#{$condition}, #{$media}";
+                            }
+                        } @else {
+
+                        }
+                    }
+                    $startIndex: -1;
+                } @else {
+                    $errorWrongQuery: true;
+                }
+            }
+        }
+        @if $errorWrongQuery == true {
+            @warn "media (#{$values}) expects only 0 or 1 as argument";
+        } @else {
+            @if $condition != "" {
+                @if $condition == "∞" {
+                    @content;
+                } @else {
+                    @media #{$condition} {
+                        @content;
+                    }
+                }
+            }
+        }
+    }
+}
