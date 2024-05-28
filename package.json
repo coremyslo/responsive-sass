@@ -1,6 +1,6 @@
 {
     "name": "responsive-sass",
-    "version": "0.0.3",
+    "version": "1.0.0",
     "main": "index.scss",
     "description": "Responsive sass mixins",
     "repository": {
@@ -11,6 +11,7 @@
     "keywords": [
         "sass",
         "responsive",
+        "grid",
         "breakpoints",
         "mixins",
         "css",

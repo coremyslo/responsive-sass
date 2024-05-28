@@ -6,8 +6,12 @@
 
 A library of mixins for creating responsive styles in SASS.
 
+## Features
+* 👨‍🎨 **Multiple grids** - You can create multiple grids and use them in the same project.
+* 👩‍🔬 **Smart rendering** - breakpoints are parsed smart under the hood, (1,1,1,1,1) will just insert value as is without any media query.
+* ♾️ **Unlimited breakpoints** - You can create your own mixin from constructor `responsive` with any number of breakpoints.
+
 ## Setup
-1. Add the dependency
 
 ```bash
 npm install responsive-sass
@@ -16,24 +20,35 @@ npm install responsive-sass
 
 yarn add responsive-sass
 ```
-2. Import the file
+## Usage
 
 ```scss
 @import "~responsive-sass/index";
-```
-3. Configure your own mixin(s) from the constructor
 
-```scss
 @mixin mediaAll ($values...) {
-    $rules: "all"; // all, screen, print
+    $rules: "all";
+    $breakpoints: 30rem, 45rem, 75rem, 100rem; // 480px, 768px, 1024px, 1200px, 1600px;
+    @include responsive ($rules, $breakpoints, $values...) {
+        @content;
+    }
+}
+
+// optional
+@mixin mediaScreen ($values...) {
+    $rules: "screen";
+    $breakpoints: 30rem, 45rem, 75rem, 100rem; // 480px, 768px, 1024px, 1200px, 1600px;
+    @include responsive ($rules, $breakpoints, $values...) {
+        @content;
+    }
+}
+@mixin mediaPrint ($values...) {
+    $rules: "print";
     $breakpoints: 30rem, 45rem, 75rem, 100rem; // 480px, 768px, 1024px, 1200px, 1600px;
     @include responsive ($rules, $breakpoints, $values...) {
         @content;
     }
 }
 ```
-4. Use it in your scss styles
-
 ```scss
 div {
     @include mediaAll (1,0,0,0,0) {
@@ -44,7 +59,7 @@ div {
     }
 }
 ```
-5. Observe the result in css:
+## Output
 
 ```css
 div {
